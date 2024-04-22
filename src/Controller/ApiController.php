@@ -24,27 +24,22 @@ class ApiController extends AbstractController
             "”Livet är som en cykel. För att hålla balansen måste du fortsätta framåt” - Albert Einstein",
         ];
 
-        // Randomly select a quote
         $randomIndex = array_rand($quotes);
         $randomQuote = $quotes[$randomIndex];
 
         date_default_timezone_set('Europe/Stockholm');
 
-        // Get today's date and timestamp
         $todayDate = date('Y-m-d');
         $timestamp = date('H:i:s');
 
-        // Create the JSON response
         $responseData = [
             'quote' => $randomQuote,
             'date' => $todayDate,
             'timestamp' => $timestamp
         ];
 
-        // Create JSON response object
         $response = new JsonResponse($responseData);
 
-        // Set JSON_PRETTY_PRINT option for better readability
         $response->setEncodingOptions(
             $response->getEncodingOptions() | JSON_PRETTY_PRINT
         );

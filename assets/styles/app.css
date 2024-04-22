@@ -25,8 +25,8 @@ h1 {
 }
 
 .about-col {
-    flex-grow: 1; /* Let the column grow to fill available space */
-    max-width: 70%; /* Limit the maximum width to prevent excessive widening */
+    flex-grow: 1;
+    max-width: 70%;
     padding: 20px;
     background-color: #f7f7f7;
     border-radius: 5px;
@@ -49,8 +49,6 @@ h1 {
 .about-col a:hover {
     text-decoration: underline;
 }
-
-/* public/css/lucky_styles.css */
 
 .magic-container {
     text-align: center;
@@ -80,7 +78,7 @@ h1 {
 
 .magic-image {
     margin-top: 40px;
-    width: 200px; /* Adjust the width as needed */
+    width: 200px;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -128,7 +126,7 @@ h1 {
 .site-header {
     background-color: #333;
     color: #fff;
-    padding: 30px; /* Increased padding for a larger header */
+    padding: 30px;
     text-align: center;
     position: fixed;
     top: 0;
@@ -137,7 +135,7 @@ h1 {
 }
 
 .site-title {
-    font-size: 28px; /* Increased font size for the title */
+    font-size: 28px;
     font-weight: bold;
 }
 
@@ -164,11 +162,11 @@ h1 {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    text-align: center; /* Center align the text within the container */
+    text-align: center;
 }
 
 .home-heading {
-    margin-bottom: 20px; /* Add space below the heading */
+    margin-bottom: 20px;
 }
 
 .dog-container {
