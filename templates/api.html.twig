@@ -1,0 +1,9 @@
+{% extends "base.html.twig" %}
+
+{% block title %}API{% endblock %}
+
+{% block body %}
+    <h1>API</h1>
+    <h2>En sammanställning av alla JSON routes som din webbplatsen erbjuder.</h2>
+    <a href="{{ path('api_quote') }}">Quote</a> - Visar upp slumpade quotes
+{% endblock %}

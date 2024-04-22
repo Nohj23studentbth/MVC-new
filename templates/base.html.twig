@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" href="{{ asset('img/glider.svg') }}">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}"> <!-- Link to your custom CSS file -->
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+<body>
+
+<header class="site-header">
+    <span class="site-title">My Symfony Site</span>
+    <nav>
+        <ul>
+            <li><a href="{{ path('home') }}">Home</a></li>
+            <li><a href="{{ path('about') }}">About</a></li>
+            <li><a href="{{ path('lucky_number') }}">Lucky</a></li>
+            <li><a href="{{ path('report') }}">Report</a></li>
+            <li><a href="{{ path('api') }}">API</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+<main>
+    {% block body %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+    <div class="footer-content">
+        <p>&copy; 2024 My Symfony Site. All rights reserved.</p>
+        <p>Created by Noah Hjelm</p>
+    </div>
+</footer>
+
+</body>
+</html>

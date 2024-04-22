@@ -1,0 +1,14 @@
+{# templates/lucky_number.html.twig #}
+
+{% extends "base.html.twig" %}
+
+{% block title %}Magic number{% endblock %}
+
+{% block body %}
+    <div class="magic-container">
+        <h1 class="magic-title">Magic Number</h1>
+        <p class="magic-text">Welcome to my awesome magical homepage!</p>
+        <div class="magic-number">{{ number }}</div>
+        <img class="magic-image" src="{{ asset('img/' ~ randomImage) }}" alt="Crazy Image">
+    </div>
+{% endblock %}

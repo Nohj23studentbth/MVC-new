@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="home-heading">Home</h1>
+        <div class="dog-container">
+            <h2>This is my dog!</h2>
+            <a href="{{ asset('img/jangoliten.jpeg') }}">
+                <img src="{{ asset('img/jangoliten.jpeg') }}" alt="My Dog">
+            </a>
+        </div>
+        <p>Hej, jag heter Noah Hjelm.</br></br>Just nu utforskar jag grunderna och baserna i MVC. 
+        Det är spännande att experimentera och lära sig nya saker, 
+        särskilt eftersom jag är ändå ny inom ämnet programmering.</br></br>
+        Jag har tidigare avslutat min kandidatexamen i nationalekonomi, 
+        men har alltid haft ett intresse för datorer och hur det fungerar med att skapa och programmera. 
+        Jag kände att det här valet var rätt för mig och nu utforskar jag det på djupet.</br></br>
+        Bland mina hobbies finns musik, träning och nu även programmering. 
+        Just nu fokuserar jag på att lära innehållet i MVC-kursen och skapar mig en liten "me"-sida. Tack för nu, 
+        och ha det bra!</p>
+
+    </div>
+{% endblock %}
