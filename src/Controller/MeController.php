@@ -13,12 +13,12 @@ class MeController extends AbstractController
     {
         return $this->render('home.html.twig');
     }
-    
+
     #[Route("/report", name: "report")]
     public function report(): Response
     {
         return $this->render('report.html.twig');
-    }    
+    }
 
     #[Route("/about", name: "about")]
     public function about(): Response
