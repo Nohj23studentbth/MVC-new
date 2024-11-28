@@ -5,21 +5,23 @@ namespace App\Card;
 class CardGraphic extends Card
 {
     private $representation = [
-        '⚀',
-        '⚁',
-        '⚂',
-        '⚃',
-        '⚄',
-        '⚅',
+        'Spades' => '♠',
+        'Hearts' => '♥',
+        'Diamonds' => '♦',
+        'Clubs' => '♣',
     ];
 
-    public function __construct()
+    public function __construct($rank, $suit)
     {
-        parent::__construct();
+        parent::__construct($rank, $suit);
     }
 
     public function getAsString(): string
     {
-        return $this->representation[$this->value - 1];
+        $ranks = $this->getRank();
+        $suits = $this->representation[$this->getSuit()];
+
+        return "{$ranks} {$suits}";
     }
+
 }

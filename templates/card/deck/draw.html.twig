@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Session{% endblock %}
+
+{% block body %}
+
+
+<h1>
+    Deck of Cards - Draw Card
+</h1>
+
+<p>Cards in deck: {{ countCards }}</p>
+
+<ul>
+    {% for cards in hand %}
+        <li>{{ cards }}</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+

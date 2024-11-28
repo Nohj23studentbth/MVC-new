@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Session{% endblock %}
+
+{% block body %}
+
+
+<h1>
+    Deck of Cards - Shuffle
+</h1>
+
+<ul>
+    {% for cards in allCards %}
+        <li>{{ cards }}</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+

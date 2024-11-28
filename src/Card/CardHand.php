@@ -3,6 +3,7 @@
 namespace App\Card;
 
 use App\Card\Card;
+use App\Card\DeckOfCards;
 
 class CardHand
 {
@@ -13,25 +14,21 @@ class CardHand
         $this->hand[] = $card;
     }
 
-    public function roll(): void
+    public function addCardsArray($cards)
     {
-        foreach ($this->hand as $card) {
-            $card->roll();
+        foreach ($cards as $card) {
+            $this->add($card);
         }
     }
 
-    public function getNumberCards(): int
+    public function getHand(): array
+    {
+        return $this->hand;
+    }
+
+    public function getNumCards(): int
     {
         return count($this->hand);
-    }
-
-    public function getValues(): array
-    {
-        $values = [];
-        foreach ($this->hand as $card) {
-            $values[] = $card->getValue();
-        }
-        return $values;
     }
 
     public function getString(): array

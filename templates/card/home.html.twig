@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Card game{% endblock %}
+
+{% block body %}
+<h1>Card game</h1>
+
+<p>Förstasidan som kortspelet utgår från.</p>
+
+<p>Jag har valt att ha exakt de klassar som det tipsades om i uppgiften eftersom det var en bra start när man är ny på OOP. Class card är mallen för ett spelkort med attributerna "suit" & "rank" , den anropas som en instans av Class DeckOfCards när kortleken skapas, den innehåller också alla metoder som hanterar leken. Cardhand innehåller en hand av kort (kort-objekt) och de metoder som hanterar en spelhand som sedan kan kopplas till en spelare. </p>
+
+{# <p>Round: {{ pigRound }}</p>
+<p>Total: {{ pigTotal }}</p> #}
+
+{{ include('flash.html.twig') }}
+
+<ul>
+    <li><a href="{{ path('card_deck') }}">DeckOfCards</a></li>
+    <li><a href="{{ path('card_shuffle') }}">Shuffle Deck</a></li>
+    <li><a href="{{ path('card_draw') }}">Draw a card</a></li>
+</ul>
+
+<a href="{{ asset('img/jangoliten.jpeg') }}">
+    <img src="{{ asset('img/jangoliten.jpeg') }}" alt="" style="width: 700px; height: auto;">
+</a>
+
+
+
+{% endblock %}
