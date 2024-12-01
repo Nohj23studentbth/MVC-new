@@ -4,29 +4,34 @@ namespace App\Card;
 
 class Card
 {
-    protected $rank;
-    protected $suit;
+    protected string $colour;
+    protected string $rang;
+    protected int $val;
 
-    public function __construct($rank, $suit)
+    public function __construct(string $colour, string $rang, int $val)
     {
-        $this->rank = $rank;
-        $this->suit = $suit;
+        $this->colour = $colour;
+        $this->rang = $rang;
+        $this->val = $val;
+    }
+    
+    public function getRang(): string
+    {
+        return $this->rang;
     }
 
-    // Baserat på tärning, ser om det behövs
-    public function getSuit()
+    public function getColour(): string
     {
-        return $this->suit;
+        return $this->colour;
     }
 
-    public function getRank()
+    public function getVal(): int
     {
-        return $this->rank;
+        return $this->val;
     }
 
-    // Return as string
-    public function getAsString(): string
+    public function getAsStr(): string
     {
-        return "{$this->rank} {$this->suit}";
+        return "{$this->colour} {$this->rang}";
     }
 }

@@ -3,22 +3,30 @@
 namespace App\Card;
 
 use App\Card\Card;
-use App\Card\DeckOfCards;
 
 class CardHand
-{
-    private $hand = [];
+{   
+    private array $handen = [];
 
-    public function add(Card $card): void
+    public function add(Card $kort): void
     {
-        $this->hand[] = $card;
+        $this->hand[] = $kort;
     }
 
-    public function addCardsArray($cards)
+    public function addCardsArray(array $korten): void
     {
-        foreach ($cards as $card) {
-            $this->add($card);
+        foreach ($korten as $kort) {
+            $this->add($kort);
         }
+    }
+
+    public function handValue(): int
+    {
+        $val = 0;
+        foreach ($this->hand as $kort) {
+            $val += $kort->getVal();
+        }
+        return (int)$val;
     }
 
     public function getHand(): array
@@ -30,13 +38,24 @@ class CardHand
     {
         return count($this->hand);
     }
-
+    
     public function getString(): array
     {
-        $values = [];
-        foreach ($this->hand as $card) {
-            $values[] = $card->getAsString();
+        $vals = [];
+        foreach ($this->hand as $kort) {
+            $vals[] = $kort->getAsStr();
         }
-        return $values;
+        return $vals;
+    }
+
+    public function Ess(): int
+    {
+        $Ess = 0;
+        foreach($this->hand as $kort) {
+            if ($kort->getRang() === 'Ess') {
+                $Ess++;
+            }
+        }
+        return $Ess;
     }
 }

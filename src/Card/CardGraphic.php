@@ -3,25 +3,25 @@
 namespace App\Card;
 
 class CardGraphic extends Card
-{
-    private $representation = [
-        'Spades' => '♠',
-        'Hearts' => '♥',
-        'Diamonds' => '♦',
-        'Clubs' => '♣',
+{   
+    private array $korten = [
+        'Klöver' => '♣',
+        'Spader' => '♠',
+        'Ruter' => '♦',
+        'Hjärter' => '♥'
     ];
 
-    public function __construct($rank, $suit)
+    public function __construct(string $colour, string $rang, int $val)
     {
-        parent::__construct($rank, $suit);
+        parent::__construct($colour, $rang, $val);
     }
 
-    public function getAsString(): string
+    public function getAsStr(): string
     {
-        $ranks = $this->getRank();
-        $suits = $this->representation[$this->getSuit()];
+        $colours = $this->korten[$this->getColour()];
+        $rangs = $this->getRang();
 
-        return "{$ranks} {$suits}";
+        return "{$colours} {$rangs}";
     }
 
 }

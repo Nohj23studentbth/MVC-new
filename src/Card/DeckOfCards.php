@@ -3,74 +3,100 @@
 namespace App\Card;
 
 use App\Card\Card;
-use App\Card\CardHand;
 
 class DeckOfCards
-{
-    private $deck = [];
+{   
+    private array $kortlek = [];
 
     public function __construct()
     {
-      
+
     }
 
     public function setupDeck(): void
     {
-        $ranks = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King'];
-        $suits = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
+        $colours = ['Klöver', 'Spader', 'Ruter', 'Hjärter'];
+        $rangs = ['Ess', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Knekt', 'Dam', 'Kung'];
 
-        foreach ($suits as $suit) {
-            foreach ($ranks as $rank) {
-                $this->deck[] = new CardGraphic($rank, $suit);
+        foreach ($colours as $colour) {
+            foreach ($rangs as $rang) {
+                $val = $this->setVal($rang);
+                $this->kortlek[] = new CardGraphic($colour, $rang, $val);
             }
         }
     }
 
     public function setupDeckText(): void
     {
-        $ranks = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King'];
-        $suits = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
+        $rangs = ['Ess', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Knekt', 'Dam', 'Kung'];
+        $colours = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
 
-        foreach ($suits as $suit) {
-            foreach ($ranks as $rank) {
-                $this->deck[] = new Card($rank, $suit);
+        foreach ($colours as $colour) {
+            foreach ($rangs as $rang) {
+                $val = $this->setVal($rang);
+                $this->kortlek[] = new Card($colour, $rang, $val);
             }
         }
     }
 
-    public function draw($amount): array
+    public function setVal(string $rang): int
     {
-        $drawnCards = [];
-
-        for ($i = $amount; 0 < $i; $i--) {
-            $drawnCard = array_pop($this->deck);
-            $drawnCards[] = $drawnCard;
+        if (is_numeric($rang)) {
+            return (int)$rang;
         }
-        return $drawnCards;
+
+        if ($rang === 'Ess') {
+            return 14;
+        }
+
+        if ($rang === 'Knekt') {
+            return 11;
+        }
+
+        if ($rang === 'Dam') {
+            return 12;
+        }
+
+        if ($rang === 'Kung') {
+            return 13;
+        }
+
+        return 0;
+    }
+
+    public function draw(int $summa): array
+    {
+        $dragnaKort = [];
+
+        for ($i = $summa; $i > 0 && !empty($this->kortlek); $i--) {
+            $dragetKort = array_shift($this->kortlek);
+            $dragnaKort[] = $dragetKort;
+        }
+        return $dragnaKort;
     }
 
     public function shuffle(): void
     {
-        shuffle($this->deck);
+        shuffle($this->kortlek);
 
     }
 
     public function countCards(): int
     {
-        return count($this->deck);
+        return count($this->kortlek);
     }
 
     public function getDeck(): array
     {
-        return $this->deck;
+        return $this->kortlek;
     }
 
     public function getString(): array
     {
-        $values = [];
-        foreach ($this->deck as $card) {
-            $values[] = $card->getAsString();
+        $vals = [];
+        foreach ($this->kortlek as $kort) {
+            $vals[] = $kort->getAsStr();
         }
-        return $values;
+        return $vals;
     }
 }

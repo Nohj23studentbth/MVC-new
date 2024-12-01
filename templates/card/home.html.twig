@@ -7,10 +7,7 @@
 
 <p>Förstasidan som kortspelet utgår från.</p>
 
-<p>Jag har valt att ha exakt de klassar som det tipsades om i uppgiften eftersom det var en bra start när man är ny på OOP. Class card är mallen för ett spelkort med attributerna "suit" & "rank" , den anropas som en instans av Class DeckOfCards när kortleken skapas, den innehåller också alla metoder som hanterar leken. Cardhand innehåller en hand av kort (kort-objekt) och de metoder som hanterar en spelhand som sedan kan kopplas till en spelare. </p>
-
-{# <p>Round: {{ pigRound }}</p>
-<p>Total: {{ pigTotal }}</p> #}
+<p>I spelet har jag valt att gå vägen lite efter föreläsningen och det som anvisades. I klassen Card är det som egentligen tar och fungerar som en mall för hela spelet, där vi har attribut som rang och colour, alltså vilken färg och vilket värde. Kortleken skapas sedan i DeckOfCards, där hanteras kortleken. Sen har vi också CardHand som har korten i handen (objekt) och här hanteras metoder till en spelare som de kan kopplas till.</p>
 
 {{ include('flash.html.twig') }}
 
