@@ -56,10 +56,10 @@ class TheGame21Controller extends AbstractController
             $bankAdjusted = $spel->checkAceValue($bankHand);
 
             $data = [
-                "playerHand" => $spelarHand->getString(),
-                "playerValue" => $playerAdjusted,
-                "bankHand" => $bankHand->getString(),
-                "bankValue" => $bankAdjusted
+                "SpelarensHand" => $spelarHand->getString(),
+                "SpelarensVärde" => $playerAdjusted,
+                "bankensHand" => $bankHand->getString(),
+                "bankensVärde" => $bankAdjusted
             ];
         }
 
@@ -77,9 +77,9 @@ class TheGame21Controller extends AbstractController
             $spelarHand = $spel->getPlayerHand();
             $kortlek = $spel->getDeck();
 
-            $card = $kortlek->draw(1);
+            $kort = $kortlek->draw(1);
 
-            $spelarHand->addCardsArray($card);
+            $spelarHand->addCardsArray($kort);
 
             $playerAdjusted = $spel->checkAceValue($spelarHand);
 

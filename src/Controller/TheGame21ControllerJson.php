@@ -11,25 +11,22 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TheGame21ControllerJson
 {
-    #[Route("/api/game")]
+    #[Route("/api/game", name:"api_game")]
     public function game21Api(SessionInterface $session): Response
     {   
-        /** 
-         * @var Game21 $game
-         */
-        $game = $session->get("game21_logic");
+        $spel = $session->get("game21_logic");
 
-        $playerHand = $game->getPlayerHand();
-        $bankHand = $game->getBankHand();
+        $spelarHand = $spel->getPlayerHand();
+        $bankHand = $spel->getBankHand();
 
-        $playerAdjusted = $game->checkAceValue($playerHand);
-        $bankAdjusted = $game->checkAceValue($bankHand);
+        $playerAdjusted = $spel->checkAceValue($spelarHand);
+        $bankAdjusted = $spel->checkAceValue($bankHand);
 
         $data = [
-            "playerHand" => $playerHand->getString(),
-            "playerValue" => $playerAdjusted,
-            "bankHand" => $bankHand->getString(),
-            "bankValue" => $bankAdjusted
+            "SpelarensHand" => $spelarHand->getString(),
+            "SpelarensVärde" => $playerAdjusted,
+            "bankensHand" => $bankHand->getString(),
+            "bankensVärde" => $bankAdjusted
         ];
 
         $response = new JsonResponse($data);

@@ -10,23 +10,23 @@
 <h3>Spelar kort</h3>
 <div class="card-box">
 
-    {% for card in playerHand %}
+    {% for card in SpelarensHand %}
         <span class="card">{{ card }}</span>
     {% endfor %}
 </div>
 
-<p>Totalt värde: {{ playerValue }}</p>
+<p>Totalt värde: {{ SpelarensVärde }}</p>
 
 <h3>Bank kort</h3>
 <div class="card-box">
 
-    {% for card in bankHand %}
+    {% for card in bankensHand %}
         <span class="card">{{ card }}</span>
     {% endfor %}
 </div>
 
 
-<p>Totalt värde: {{ bankValue }}</p>
+<p>Totalt värde: {{ bankensVärde }}</p>
 
 {{ include('flash.html.twig') }}
 
