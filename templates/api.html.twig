@@ -26,11 +26,27 @@
             const drawNum = document.getElementById('drawNum').value;
 
             if (drawNum > 0) {
-                // Redirect to the dynamically generated URL
-                window.location.href = `/api/deck/draw/${drawNum}`;
+                // Check if we are on a local development environment
+                const isLocal = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
+                
+                // Construct the URL based on the environment
+                let redirectUrl;
+                if (isLocal) {
+                    // Local environment, use relative URL
+                    redirectUrl = `/api/deck/draw/${drawNum}`;
+                } else {
+                    // Production environment, use full base URL
+                    const baseUrl = "http://www.student.bth.se/~nohj23/dbwebb-kurser/mvc/me/report/public";
+                    redirectUrl = `${baseUrl}/api/deck/draw/${drawNum}`;
+                }
+
+                // Redirect to the generated URL
+                window.location.href = redirectUrl;
             } else {
                 alert("Please enter a valid number greater than 0.");
             }
         });
     </script>
+
+
 {% endblock %}
