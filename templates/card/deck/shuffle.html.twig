@@ -3,17 +3,17 @@
 {% block title %}Session{% endblock %}
 
 {% block body %}
+<div class="shuffle-deck-container">
+    <header class="shuffle-deck-header">
+        <h1>Kortlek - Blandas</h1>
+    </header>
 
-
-<h1>
-    Kortlek - Blandas
-</h1>
-
-<ul>
-    {% for korten in allaKort %}
-        <li>{{ korten }}</li>
-    {% endfor %}
-</ul>
-
+    <section class="shuffled-cards">
+        <ul>
+            {% for korten in allaKort %}
+                <li class="shuffled-card">{{ korten }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+</div>
 {% endblock %}
-

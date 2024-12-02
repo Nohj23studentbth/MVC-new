@@ -29,7 +29,7 @@ class DeckOfCards
     public function setupDeckText(): void
     {
         $rangs = ['Ess', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Knekt', 'Dam', 'Kung'];
-        $colours = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
+        $colours = ['Klöver', 'Spader', 'Ruter', 'Hjärter'];
 
         foreach ($colours as $colour) {
             foreach ($rangs as $rang) {

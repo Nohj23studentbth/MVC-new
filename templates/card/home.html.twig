@@ -3,24 +3,37 @@
 {% block title %}Card game{% endblock %}
 
 {% block body %}
-<h1>Card game</h1>
+<div class="card-game-container">
+    <header class="card-game-header">
+        <h1>Card game</h1>
+    </header>
 
-<p>Förstasidan som kortspelet utgår från.</p>
+    <section class="card-game-intro">
+        <p>Förstasidan som kortspelet utgår från.</p>
+        <p>
+            I spelet har jag valt att gå vägen lite efter föreläsningen och det som anvisades. I klassen Card är det som egentligen 
+            tar och fungerar som en mall för hela spelet, där vi har attribut som rang och colour, alltså vilken färg och vilket värde. 
+            Kortleken skapas sedan i DeckOfCards, där hanteras kortleken. Sen har vi också CardHand som har korten i handen (objekt) 
+            och här hanteras metoder till en spelare som de kan kopplas till.
+        </p>
+    </section>
 
-<p>I spelet har jag valt att gå vägen lite efter föreläsningen och det som anvisades. I klassen Card är det som egentligen tar och fungerar som en mall för hela spelet, där vi har attribut som rang och colour, alltså vilken färg och vilket värde. Kortleken skapas sedan i DeckOfCards, där hanteras kortleken. Sen har vi också CardHand som har korten i handen (objekt) och här hanteras metoder till en spelare som de kan kopplas till.</p>
+    <section class="card-game-flash">
+        {{ include('flash.html.twig') }}
+    </section>
 
-{{ include('flash.html.twig') }}
+    <nav class="card-game-links">
+        <ul>
+            <li><a href="{{ path('card_deck') }}">DeckOfCards</a></li>
+            <li><a href="{{ path('card_shuffle') }}">Shuffle Deck</a></li>
+            <li><a href="{{ path('card_draw') }}">Draw a card</a></li>
+        </ul>
+    </nav>
 
-<ul>
-    <li><a href="{{ path('card_deck') }}">DeckOfCards</a></li>
-    <li><a href="{{ path('card_shuffle') }}">Shuffle Deck</a></li>
-    <li><a href="{{ path('card_draw') }}">Draw a card</a></li>
-</ul>
-
-<a href="{{ asset('img/jangoliten.jpeg') }}">
-    <img src="{{ asset('img/uml.png') }}" alt="" style="width: 700px; height: auto;">
-</a>
-
-
-
+    <section class="card-game-image">
+        <a href="{{ asset('img/uml.png') }}">
+            <img src="{{ asset('img/uml.png') }}" alt="UML Diagram" class="uml-image">
+        </a>
+    </section>
+</div>
 {% endblock %}

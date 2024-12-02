@@ -6,5 +6,31 @@
     <h1>API</h1>
     <h2>En sammanställning av alla JSON routes som din webbplatsen erbjuder.</h2>
     <a href="{{ path('api_quote') }}">Quote</a> - Visar upp slumpade quotes</br>
-    <a href="{{ path('api_quote') }}">Deck</a> - Visar upp Deck api
+    <a href="{{ path('api_deck') }}">Deck</a> - Visar upp kortlek (sorterad)</br>
+    <a href="{{ path('api_shuffle') }}">Deck/shuffle</a> - Visar upp kortlek (blandad)</br>
+    <a href="{{ path('api_draw') }}">Deck/draw</a> - Drar ett kort från kortleken</br>
+    <a href="{{ path('api_draw_num', {number: 1}) }}">Deck/draw/:number</a> - Drar det givna numret från kortleken:</br>
+
+
+    <h3>Dra ett specifikt nummer i kortleken. Kortleken innehåller 52 kort.</h3>
+    <form id="drawCardForm">
+        <label for="drawNum">Skriv in det antal du vill dra från kortleken:</label>
+        <input type="number" id="drawNum" name="draw_num" min="1" required />
+        <button type="submit">Dra Kort</button>
+    </form>
+
+    <script>
+        document.getElementById('drawCardForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const drawNum = document.getElementById('drawNum').value;
+
+            if (drawNum > 0) {
+                // Redirect to the dynamically generated URL
+                window.location.href = `/api/deck/draw/${drawNum}`;
+            } else {
+                alert("Please enter a valid number greater than 0.");
+            }
+        });
+    </script>
 {% endblock %}

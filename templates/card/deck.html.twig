@@ -3,13 +3,17 @@
 {% block title %}Session{% endblock %}
 
 {% block body %}
+<div class="deck-container">
+    <header class="deck-header">
+        <h1>Kortlek</h1>
+    </header>
 
-<h1>Kortlek</h1>
-<ul>
-    {% for kort in allaKort %}
-        <li>{{ kort }}</li>
-    {% endfor %}
-</ul>
-
+    <section class="deck-list">
+        <ul>
+            {% for kort in allaKort %}
+                <li class="deck-card">{{ kort }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+</div>
 {% endblock %}
-

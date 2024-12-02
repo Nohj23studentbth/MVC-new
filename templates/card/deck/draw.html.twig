@@ -3,19 +3,22 @@
 {% block title %}Session{% endblock %}
 
 {% block body %}
+<div class="draw-card-container">
+    <header class="draw-card-header">
+        <h1>Kortlek - Dra ett Kort</h1>
+    </header>
 
+    <section class="deck-info">
+        <p>Kort i leken: <span class="card-count">{{ countCards }}</span></p>
+    </section>
 
-<h1>
-    Kortlek - Dra ett Kort
-</h1>
-
-<p>Kort i leken: {{ countCards }}</p>
-
-<ul>
-    {% for korten in hand %}
-        <li>{{ korten }}</li>
-    {% endfor %}
-</ul>
-
+    <section class="hand-cards">
+        <h2>Dragna Kort</h2>
+        <ul>
+            {% for korten in hand %}
+                <li class="hand-card">{{ korten }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+</div>
 {% endblock %}
-

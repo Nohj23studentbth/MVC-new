@@ -16,16 +16,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CardGameControllerJson
 {
-    #[Route("/api/deck")]
+    #[Route("/api/deck", name: "api_deck")]
     public function deckApi(SessionInterface $session): Response
     {
-        $deck = new DeckOfCards();
-        $deck->setupDeckText();
+        $kortlek = new DeckOfCards();
+        $kortlek->setupDeckText();
 
-        $allCards = $deck->getString();       
+        $allaKort = $kortlek->getString();       
 
         $data = [
-            'allCards' => $allCards,
+            'allaKort' => $allaKort,
         ];
 
         $response = new JsonResponse($data);
@@ -35,20 +35,20 @@ class CardGameControllerJson
         return $response;
     }
 
-    #[Route("/api/deck/shuffle", name:"shuffle", methods: ["POST"])]
+    #[Route("/api/deck/shuffle", name:"api_shuffle", methods: ["GET", "POST"])]
     public function shuffleApi(
         SessionInterface $session,
         Request $request,
     ): Response {
-        $deck = new DeckOfCards();
-        $deck->setupDeckText();
-        $session->set("card_deck", $deck);
+        $kortlek = new DeckOfCards();
+        $kortlek->setupDeckText();
+        $session->set("card_deck", $kortlek);
 
-        $shuffledDeck = $deck->shuffle();
-        $shuffledDeck = $deck->getString();
+        $blandadKortlek = $kortlek->shuffle();
+        $blandadKortlek = $kortlek->getString();
 
         $data = [
-            'allCards' => $shuffledDeck,
+            'allaKort' => $blandadKortlek,
         ];
 
         $response = new JsonResponse($data);
@@ -58,31 +58,31 @@ class CardGameControllerJson
         return $response;
     }
 
-    #[Route("/api/deck/draw", name:"draw", methods: ["POST"])]
+    #[Route("/api/deck/draw", name:"api_draw", methods: ["GET", "POST"])]
     public function drawApi(
         SessionInterface $session,
         Request $request,
     ): Response {
-        $deck = $session->get('card_deck');
-        $countCards = $deck->countCards();
+        $kortlek = $session->get('card_deck');
+        $cntKort = $kortlek->countCards();
 
-        if ($countCards > 0) {
-            $drawn = $deck->draw(1);
+        if ($cntKort > 0) {
+            $draget = $kortlek->draw(1);
 
             $hand = new CardHand();
-            $hand->addCardsArray($drawn);
+            $hand->addCardsArray($draget);
 
-            $cardsHand = $hand->getString();
+            $kortHanden = $hand->getString();
         } else {
 
-            $cardsHand = [];
+            $kortHanden = [];
         }
 
-        $countCards = $deck->countCards();
+        $cntKort = $kortlek->countCards();
 
         $data = [
-            'hand' => $cardsHand,
-            'countCards' => $countCards
+            'hand' => $kortHanden,
+            'countCards' => $cntKort
         ];
 
         $response = new JsonResponse($data);
@@ -92,39 +92,37 @@ class CardGameControllerJson
         return $response;
     }
 
-    #[Route("/api/deck/draw/", name:"draw_num", methods: ["POST"])]
+    #[Route("/api/deck/draw/{number}", name: "api_draw_num", methods: ["GET"])]
     public function drawNumApi(
         SessionInterface $session,
-        Request $request,
+        int $number
     ): Response {
-        $num = (int)$request->request->get('draw_num');
-
-        $deck = $session->get('card_deck');
-        $countCards = $deck->countCards();
-
-        if ($countCards > 0) {
-            $drawn = $deck->draw($num);
-
+        $kortlek = $session->get('card_deck');
+        $cntKort = $kortlek ? $kortlek->countCards() : 0;
+    
+        if ($cntKort > 0 && $number > 0) {
+            $draget = $kortlek->draw($number);
+    
             $hand = new CardHand();
-            $hand->addCardsArray($drawn);
-
-            $cardsHand = $hand->getString();
+            $hand->addCardsArray($draget);
+    
+            $kortHanden = $hand->getString();
         } else {
-
-            $cardsHand = [];
+            $kortHanden = [];
         }
-
-        $countCards = $deck->countCards();
-
+    
+        $cntKort = $kortlek ? $kortlek->countCards() : 0;
+    
         $data = [
-            'hand' => $cardsHand,
-            'countCards' => $countCards
+            'hand' => $kortHanden,
+            'countCards' => $cntKort,
         ];
-
+    
         $response = new JsonResponse($data);
         $response->setEncodingOptions(
             $response->getEncodingOptions() | JSON_PRETTY_PRINT
         );
         return $response;
-    }
-}
+    }    
+    
+}    
