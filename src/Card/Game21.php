@@ -60,11 +60,11 @@ class Game21
     public function checkAceValue(CardHand $kort): int
     {
         $totalVal = $kort->handValue();
-        $Ess = $kort->Ess();
+        $ess = $kort->Ess();
 
-        while ($totalVal > 21 && 0 < $Ess) {
+        while ($totalVal > 21 && 0 < $ess) {
             $totalVal -= 13;
-            $Ess--;
+            $ess--;
         }
 
         return (int)$totalVal;

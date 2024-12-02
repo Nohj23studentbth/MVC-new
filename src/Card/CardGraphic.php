@@ -3,7 +3,10 @@
 namespace App\Card;
 
 class CardGraphic extends Card
-{   
+{
+    /**
+     * @var array<string, string> $korten The suits and their symbols
+     */
     private array $korten = [
         'Klöver' => '♣',
         'Spader' => '♠',
@@ -23,5 +26,4 @@ class CardGraphic extends Card
 
         return "{$colours} {$rangs}";
     }
-
 }

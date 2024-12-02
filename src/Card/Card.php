@@ -14,7 +14,7 @@ class Card
         $this->rang = $rang;
         $this->val = $val;
     }
-    
+
     public function getRang(): string
     {
         return $this->rang;

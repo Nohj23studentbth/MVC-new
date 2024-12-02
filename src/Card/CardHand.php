@@ -5,57 +5,69 @@ namespace App\Card;
 use App\Card\Card;
 
 class CardHand
-{   
-    private array $hand = []; // Renamed from $handen to $hand for consistency
+{
+    /**
+     * @var Card[] $hand The collection of Card objects in the hand
+     */
+    private array $hand = [];
 
     public function add(Card $kort): void
     {
-        $this->hand[] = $kort; // Updated to use $hand
+        $this->hand[] = $kort;
     }
 
+    /**
+     * @param Card[] $korten An array of Card objects to add to the hand
+     */
     public function addCardsArray(array $korten): void
     {
         foreach ($korten as $kort) {
-            $this->add($kort); // No change needed here
+            $this->add($kort);
         }
     }
 
     public function handValue(): int
     {
         $val = 0;
-        foreach ($this->hand as $kort) { // Updated to use $hand
+        foreach ($this->hand as $kort) {
             $val += $kort->getVal();
         }
-        return (int)$val;
+        return $val;
     }
 
+    /**
+     * @return Card[] The collection of Card objects in the hand
+     */
     public function getHand(): array
     {
-        return $this->hand; // Updated to use $hand
+        return $this->hand;
     }
 
     public function getNumCards(): int
     {
-        return count($this->hand); // Updated to use $hand
+        return count($this->hand);
     }
-    
+
+    /**
+     * @return string[] Array of string representations of cards
+     */
     public function getString(): array
     {
         $vals = [];
-        foreach ($this->hand as $kort) { // Updated to use $hand
+        foreach ($this->hand as $kort) {
             $vals[] = $kort->getAsStr();
         }
         return $vals;
     }
 
-    public function Ess(): int
+    public function ess(): int
     {
-        $Ess = 0;
-        foreach($this->hand as $kort) { // Updated to use $hand
+        $ess = 0;
+        foreach ($this->hand as $kort) {
             if ($kort->getRang() === 'Ess') {
-                $Ess++;
+                $ess++;
             }
         }
-        return $Ess;
+        return $ess;
     }
 }

@@ -22,7 +22,7 @@ class CardGameControllerJson
         $kortlek = new DeckOfCards();
         $kortlek->setupDeckText();
 
-        $allaKort = $kortlek->getString();       
+        $allaKort = $kortlek->getString();
 
         $data = [
             'allaKort' => $allaKort,
@@ -99,30 +99,30 @@ class CardGameControllerJson
     ): Response {
         $kortlek = $session->get('card_deck');
         $cntKort = $kortlek ? $kortlek->countCards() : 0;
-    
+
         if ($cntKort > 0 && $number > 0) {
             $draget = $kortlek->draw($number);
-    
+
             $hand = new CardHand();
             $hand->addCardsArray($draget);
-    
+
             $kortHanden = $hand->getString();
         } else {
             $kortHanden = [];
         }
-    
+
         $cntKort = $kortlek ? $kortlek->countCards() : 0;
-    
+
         $data = [
             'hand' => $kortHanden,
             'countCards' => $cntKort,
         ];
-    
+
         $response = new JsonResponse($data);
         $response->setEncodingOptions(
             $response->getEncodingOptions() | JSON_PRETTY_PRINT
         );
         return $response;
-    }    
-    
-}    
+    }
+
+}

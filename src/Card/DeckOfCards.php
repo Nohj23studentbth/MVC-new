@@ -5,12 +5,15 @@ namespace App\Card;
 use App\Card\Card;
 
 class DeckOfCards
-{   
+{
+    /**
+     * @var array<Card|CardGraphic> $kortlek The collection of cards in the deck
+     */
     private array $kortlek = [];
 
     public function __construct()
     {
-
+        // Constructor logic (if any) can go here
     }
 
     public function setupDeck(): void
@@ -45,25 +48,19 @@ class DeckOfCards
             return (int)$rang;
         }
 
-        if ($rang === 'Ess') {
-            return 14;
-        }
-
-        if ($rang === 'Knekt') {
-            return 11;
-        }
-
-        if ($rang === 'Dam') {
-            return 12;
-        }
-
-        if ($rang === 'Kung') {
-            return 13;
-        }
-
-        return 0;
+        return match ($rang) {
+            'Ess' => 14,
+            'Knekt' => 11,
+            'Dam' => 12,
+            'Kung' => 13,
+            default => 0,
+        };
     }
 
+    /**
+     * @param int $summa Number of cards to draw
+     * @return array<Card|CardGraphic> The drawn cards
+     */
     public function draw(int $summa): array
     {
         $dragnaKort = [];
@@ -78,7 +75,6 @@ class DeckOfCards
     public function shuffle(): void
     {
         shuffle($this->kortlek);
-
     }
 
     public function countCards(): int
@@ -86,11 +82,17 @@ class DeckOfCards
         return count($this->kortlek);
     }
 
+    /**
+     * @return array<Card|CardGraphic> The deck of cards
+     */
     public function getDeck(): array
     {
         return $this->kortlek;
     }
 
+    /**
+     * @return array<string> String representations of all cards in the deck
+     */
     public function getString(): array
     {
         $vals = [];

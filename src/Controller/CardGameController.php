@@ -70,9 +70,18 @@ class CardGameController extends AbstractController
         Request $request,
         SessionInterface $session
     ): Response {
-        $kortlek = $session->get('card_deck');
+        /** @var DeckOfCards|null $kortlek */
+        $kortlek = $session->get('card_deck', null);
+
+        if (!$kortlek instanceof DeckOfCards) {
+            $kortlek = new DeckOfCards();
+            $kortlek->setupDeck();
+            $session->set("card_deck", $kortlek);
+        }
+
         $cntKort = $kortlek->countCards();
 
+        $kortHand = [];
         if ($cntKort > 0) {
             $drawn = $kortlek->draw(1);
 
@@ -80,16 +89,11 @@ class CardGameController extends AbstractController
             $handen->addCardsArray($drawn);
 
             $kortHand = $handen->getString();
-        } else {
-
-            $kortHand = [];
         }
-
-        $cntKort = $kortlek->countCards();
 
         $data = [
             'hand' => $kortHand,
-            'countCards' => $cntKort
+            'countCards' => $kortlek->countCards()
         ];
 
         return $this->render('card/deck/draw.html.twig', $data);
@@ -98,44 +102,42 @@ class CardGameController extends AbstractController
     #[Route("/card/deck/draw/{num<\d+>}", name: "card_draw_num")]
     public function cardDrawNum(
         int $num,
-        SessionInterface $session,
-        Request $request
+        SessionInterface $session
     ): Response {
-        {
-            $kortlek = $session->get('card_deck');
-            
-            $cntKort = $kortlek->countCards();
+        /** @var DeckOfCards|null $kortlek */
+        $kortlek = $session->get('card_deck', null);
 
-            if ($cntKort > 0) {
-                $drawn = $kortlek->draw($num);
-
-                $handen = new CardHand();
-                $handen->addCardsArray($drawn);
-
-                $kortHand = $handen->getString();
-            } else {
-
-                $kortHand = [];
-            }
-
-            $cntKort = $kortlek->countCards();
-
-            $data = [
-                'hand' => $kortHand,
-                'countCards' => $cntKort
-            ];
+        if (!$kortlek instanceof DeckOfCards) {
+            $kortlek = new DeckOfCards();
+            $kortlek->setupDeck();
+            $session->set("card_deck", $kortlek);
         }
+
+        $cntKort = $kortlek->countCards();
+
+        $kortHand = [];
+        if ($cntKort > 0) {
+            $drawn = $kortlek->draw($num);
+
+            $handen = new CardHand();
+            $handen->addCardsArray($drawn);
+
+            $kortHand = $handen->getString();
+        }
+
+        $data = [
+            'hand' => $kortHand,
+            'countCards' => $kortlek->countCards()
+        ];
 
         return $this->render('card/deck/draw.html.twig', $data);
     }
-    
+
     #[Route("/session", name: "card_session", methods: ['GET'])]
     public function session(
         Request $request,
         SessionInterface $session
     ): Response {
-        $kortlek = $session->get('card_deck');
-
         $data = [
             'session' => $session->all()
         ];
@@ -175,5 +177,4 @@ class CardGameController extends AbstractController
 
         return $this->render('api.html.twig', $data);
     }
-
 }
