@@ -7,85 +7,85 @@ use App\Card\DeckOfCards;
 
 class Game21
 {
-    private DeckOfCards $deck;
-    private CardHand $player;
-    private CardHand $bank;
+    private DeckOfCards $kortlek;
+    private CardHand $spelare;
+    private CardHand $banken;
 
-    public function __construct(DeckOfCards $deck, CardHand $player, CardHand $bank)
+    public function __construct(DeckOfCards $kortlek, CardHand $spelare, CardHand $banken)
     {
-        $this->deck = $deck;
-        $this->player = $player;
-        $this->bank = $bank;
+        $this->kortlek = $kortlek;
+        $this->spelare = $spelare;
+        $this->banken = $banken;
     }
 
     public function getDeck(): DeckOfCards
     {
-        return $this->deck;
+        return $this->kortlek;
     }
 
     public function getPlayerHand(): CardHand
     {
-        return $this->player;
+        return $this->spelare;
     }
 
     public function getBankHand(): CardHand
     {
-        return $this->bank;
+        return $this->banken;
     }
 
     public function start21(): void
     {
-        $this->deck->setupDeck();
-        $this->deck->shuffle();
+        $this->kortlek->setupDeck();
+        $this->kortlek->shuffle();
 
-        $playersCard = $this->deck->draw(1);
+        $spelaresKort = $this->kortlek->draw(1);
 
-        $this->player->addCardsArray($playersCard);
+        $this->spelare->addCardsArray($spelaresKort);
     }
 
     public function bankDraw(): int
     {
-        $bankHandValue = $this->checkAceValue($this->bank);
+        $bankenHandVal = $this->checkAceValue($this->banken);
 
-        while ($bankHandValue < 17) {
-            $card = $this->deck->draw(1);
-            $this->bank->add($card[0]);
+        while ($bankenHandVal < 17) {
+            $kort = $this->kortlek->draw(1);
+            $this->banken->add($kort[0]);
 
-            $bankHandValue = $this->checkAceValue($this->bank);
+            $bankenHandVal = $this->checkAceValue($this->banken);
         }
 
-        return $bankHandValue;
+        return $bankenHandVal;
     }
 
-    public function checkAceValue(CardHand $cards): int
+    public function checkAceValue(CardHand $kort): int
     {
-        $totValue = $cards->handValue();
-        $aces = $cards->aces();
+        $totalVal = $kort->handValue();
+        $Ess = $kort->Ess();
 
-        while ($totValue > 21 && 0 < $aces) {
-            $totValue -= 13;
-            $aces--;
+        while ($totalVal > 21 && 0 < $Ess) {
+            $totalVal -= 13;
+            $Ess--;
         }
 
-        return (int)$totValue;
+        return (int)$totalVal;
     }
 
     public function comparePoints(): string
     {
-        $bankTotal = $this->checkAceValue($this->bank);
-        $playerTotal = $this->checkAceValue($this->player);
+        $bankenTotal = $this->checkAceValue($this->banken);
+        $spelareTotal = $this->checkAceValue($this->spelare);
 
         switch (true) {
-            case $playerTotal > 21:
-                return 'Bank Wins, Player get bust';
-            case $bankTotal > 21:
-                return 'Player Wins, Bank get bust';
-            case $playerTotal < $bankTotal:
-                return 'Bank Wins by points';
-            case $playerTotal > $bankTotal:
-                return 'Player wins by points';
+            case $spelareTotal > 21:
+                return 'Banken vinner. Spelare över 21';
+            case $bankenTotal > 21:
+                return 'Spelare vinner, Banken över 21';
+            case $spelareTotal < $bankenTotal:
+                return 'Banken vinner på poäng';
+            case $spelareTotal > $bankenTotal:
+                return 'Spelare vinner på poäng';
             default:
-                return 'Bank wins thru a Tie';
+                return 'Banken vinner genom lika';
         }
     }
 

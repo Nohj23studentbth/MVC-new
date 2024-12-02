@@ -27,16 +27,16 @@ class TheGame21Controller extends AbstractController
         SessionInterface $session
     ): Response {
 
-        $deck = new DeckOfCards();
-        $playersHand = new CardHand();
-        $banksHand = new CardHand();
+        $kortlek = new DeckOfCards();
+        $spelarHand = new CardHand();
+        $bankHand = new CardHand();
 
-        $game = new game21($deck, $playersHand, $banksHand);
+        $spel = new game21($kortlek, $spelarHand, $bankHand);
 
-        $game->start21(); // Start game, iniate deck & shuffle, deal 1 player card.
+        $spel->start21(); // Start game, iniate deck & shuffle, deal 1 player card.
 
         //The Deck and both hands get saved in the "logic
-        $session->set("game21_logic", $game);
+        $session->set("game21_logic", $spel);
 
         return $this->redirectToRoute('game_round');
     }
@@ -45,18 +45,18 @@ class TheGame21Controller extends AbstractController
     public function game21Round(
         SessionInterface $session
     ): Response {
-        /** @var Game21 $game */
-        $game = $session->get("game21_logic");
+        /** @var Game21 $spel */
+        $spel = $session->get("game21_logic");
 
-        if($game !== null) {
-            $playerHand = $game->getPlayerHand();
-            $bankHand = $game->getBankHand();
+        if($spel !== null) {
+            $spelarHand = $spel->getPlayerHand();
+            $bankHand = $spel->getBankHand();
 
-            $playerAdjusted = $game->checkAceValue($playerHand);
-            $bankAdjusted = $game->checkAceValue($bankHand);
+            $playerAdjusted = $spel->checkAceValue($spelarHand);
+            $bankAdjusted = $spel->checkAceValue($bankHand);
 
             $data = [
-                "playerHand" => $playerHand->getString(),
+                "playerHand" => $spelarHand->getString(),
                 "playerValue" => $playerAdjusted,
                 "bankHand" => $bankHand->getString(),
                 "bankValue" => $bankAdjusted
@@ -70,18 +70,18 @@ class TheGame21Controller extends AbstractController
     public function game21Draw(
         SessionInterface $session
     ): Response {
-        /** @var Game21 $game */
-        $game = $session->get("game21_logic");
+        /** @var Game21 $spel */
+        $spel = $session->get("game21_logic");
         
-        if($game !== null) {
-            $playerHand = $game->getPlayerHand();
-            $deck = $game->getDeck();
+        if($spel !== null) {
+            $spelarHand = $spel->getPlayerHand();
+            $kortlek = $spel->getDeck();
 
-            $card = $deck->draw(1);
+            $card = $kortlek->draw(1);
 
-            $playerHand->addCardsArray($card);
+            $spelarHand->addCardsArray($card);
 
-            $playerAdjusted = $game->checkAceValue($playerHand);
+            $playerAdjusted = $spel->checkAceValue($spelarHand);
 
             if ($playerAdjusted > 21) {
 
@@ -99,12 +99,12 @@ class TheGame21Controller extends AbstractController
     public function game21Stop(
         SessionInterface $session
     ): Response {
-        /** @var Game21 $game */
+        /** @var Game21 $spel */
 
-        $game = $session->get("game21_logic");
+        $spel = $session->get("game21_logic");
 
-        $game->bankDraw();
-        $winner = $game->comparePoints();
+        $spel->bankDraw();
+        $winner = $spel->comparePoints();
 
         if ($winner) {
             $this->addFlash(
@@ -121,16 +121,16 @@ class TheGame21Controller extends AbstractController
     {
         $session->remove("game21_logic");
 
-        $deck = new DeckOfCards();
-        $playersHand = new CardHand();
-        $banksHand = new CardHand();
+        $kortlek = new DeckOfCards();
+        $spelarHand = new CardHand();
+        $bankHand = new CardHand();
 
         
-        $game = new game21($deck, $playersHand, $banksHand);
+        $spel = new game21($kortlek, $spelarHand, $bankHand);
 
-        $game->start21(); // Start game, iniate deck & shuffle, deal 1 player card.
+        $spel->start21(); // Start game, iniate deck & shuffle, deal 1 player card.
 
-        $session->set("game21_logic", $game);
+        $session->set("game21_logic", $spel);
 
 
         return $this->redirectToRoute('game_round');
