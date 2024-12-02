@@ -3,27 +3,27 @@
 {% block title %}Card game{% endblock %}
 
 {% block body %}
-<h1>Spelet 21</h1>
+<div class="container">
+    <h1 class="game-title">Spelet 21</h1>
 
-<h2>Regler</h2>
+    <h2 class="rules-title">Regler</h2>
 
+    <p class="game-description">Spelet 21 som är kanske en mer modifierad version där inte alla rulesets är med, går ut på att få så nära 21 som möjligt utan att komma över. Hamnar spelaren över förlorar man automatiskt. Spelaren ska minst ha 2 kort och får dra så många kort den vill. Valörer är lika värda.</p>
+    <p class="card-values-title">I spelet är klädda kort värda:</p>
 
-<p>Spelet 21 som är kanske en mer modifierad version där inte alla rulesets är med, går ut på att få så nära 21 som möjligt utan att komma över. Hamnar spelaren över förlorar man automatiskt. Spelaren ska minst ha 2 kort och får dra så många kort den vill. Valörer är lika värda.</p>
-<p>I spelet är klädda kort värda:</p>
+    <ul class="card-values-list">
+        <li>Knekt = 11</li>
+        <li>Dam = 12</li>
+        <li>Kung = 13</li>
+        <li>Ess = 14 alternativt 1</li>
+    </ul>
 
-<ul>
-    <li>Knekt = 11</li>
-    <li>Dam = 12</li>
-    <li>Kung = 13</li>
-    <li>Ess = 14 alternativt 1</li>
-</ul>
+    <p class="game-rules">Börja med att dra minst två kort och bestäm sedan om du vill stanna. Därefter tar "banken" sin tur genom att dra kort och försöka få en högre total än du, utan att gå över 21. Vid oavgjort eller om banken når 21, vinner banken. Spelets vinnare är den som har högst total utan att överskrida 21.</p>
 
-Börja med att dra minst två kort och bestäm sedan om du vill stanna. Därefter tar "banken" sin tur genom att dra kort och försöka få en högre total än du, utan att gå över 21. Vid oavgjort eller om banken når 21, vinner banken. Spelets vinnare är den som har högst total utan att överskrida 21.
+    <form class="start-form" method="post" action="">
+        <input type="submit" name="start_21" class="start-btn" value="Starta spelet">
+    </form>
 
-<form method="post" action="">
-    <input type="submit" name="start_21" value="Start playing">
-</form></br>
-
-<a href="{{ path('game_doc') }}">Doc - Dokumentation</br>
-
+    <a class="doc-link" href="{{ path('game_doc') }}">Doc - Dokumentation</a>
+</div>
 {% endblock %}

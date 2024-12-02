@@ -3,46 +3,37 @@
 {% block title %}Card game{% endblock %}
 
 {% block body %}
-<h1>Spelet 21</h1>
+<div class="game-container">
+    <h1 class="game-title">Spelet 21</h1>
+    <h2 class="game-subtitle">Spela 21 - Dra minst 2 kort och försök vinna mot banken.</h2>
 
-<h2>Spela 21 - Dra minst 2 kort och försök vinna mot banken.</h2>
+    <h3 class="section-title">Spelar kort</h3>
+    <div class="card-box player-cards">
+        {% for card in SpelarensHand %}
+            <span class="card">{{ card }}</span>
+        {% endfor %}
+    </div>
+    <p class="total-value">Totalt värde: {{ SpelarensVärde }}</p>
 
-<h3>Spelar kort</h3>
-<div class="card-box">
+    <h3 class="section-title">Bank kort</h3>
+    <div class="card-box bank-cards">
+        {% for card in bankensHand %}
+            <span class="card">{{ card }}</span>
+        {% endfor %}
+    </div>
+    <p class="total-value">Totalt värde: {{ bankensVärde }}</p>
 
-    {% for card in SpelarensHand %}
-        <span class="card">{{ card }}</span>
-    {% endfor %}
+    {{ include('flash.html.twig') }}
+
+    <form class="game-actions" method="post" action="">
+        <p>
+            <input type="submit" name="draw" class="action-btn draw-btn" value="Dra kort"
+                onClick="this.form.action='{{ path('game_draw') }}';">
+            <input type="submit" name="stop" class="action-btn stop-btn" value="Stanna"
+                onClick="this.form.action='{{ path('game_stop') }}';">
+            <input type="submit" name="restart" class="action-btn restart-btn" value="Starta om"
+                onClick="this.form.action='{{ path('game_restart') }}';this.form.method='get';">
+        </p>
+    </form>
 </div>
-
-<p>Totalt värde: {{ SpelarensVärde }}</p>
-
-<h3>Bank kort</h3>
-<div class="card-box">
-
-    {% for card in bankensHand %}
-        <span class="card">{{ card }}</span>
-    {% endfor %}
-</div>
-
-
-<p>Totalt värde: {{ bankensVärde }}</p>
-
-{{ include('flash.html.twig') }}
-
-<form method="post" action="">
-    <p>
-        <input type="submit" name="draw" value="Draw card"
-            onClick="this.form.action='{{ path('game_draw') }}';"
-        >
-        <input type="submit" name="stop" value="Stop"
-            onClick="this.form.action='{{ path('game_stop') }}';"
-        >
-
-        <input type="submit" name="restart" value="Restart"
-            onClick="this.form.action='{{ path('game_restart') }}';this.form.method='get';"
-        >
-    </p>
-</form>
-
 {% endblock %}
