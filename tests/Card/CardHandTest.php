@@ -88,13 +88,13 @@ class CardHandTest extends TestCase
     {
         $kort = new Card('10', 'Klöver', 10);
         $kortHand = new CardHand();
-
-        // lägg till kort och hand
+    
+        // Lägg till kort och hand
         $kortHand->add($kort);
         $kortString = $kortHand->getString();
-
-        // matchning
-        $this->assertEquals('10 Klöver', $kortString[0]);
-        $this->assertIsArray($kortString);
+    
+        // Kontrollera innehåll
+        $this->assertEquals('10 Klöver', $kortString[0], "The first card string should match the expected format.");
     }
+    
 }

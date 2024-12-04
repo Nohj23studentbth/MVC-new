@@ -23,8 +23,8 @@ class CardTest extends TestCase
         $this->assertInstanceOf(Card::class, $kort);
     }
 
-    // test konstruktor och getter metod
-    public function testCardConstructorAndGetters()
+    // Test konstruktor och getter metod
+    public function testCardConstructorAndGetters(): void
     {
         $colour = 'Ruter';
         $rang = 'Kung';
@@ -43,7 +43,7 @@ class CardTest extends TestCase
     }
 
     // Test edge case
-    public function testCardWithDifferentValues()
+    public function testCardWithDifferentValues(): void
     {
         $colour = 'Klöver';
         $rang = 'Kung';
@@ -61,7 +61,7 @@ class CardTest extends TestCase
     }
 
     // Test the getAsStr() metod
-    public function testGetAsStr()
+    public function testGetAsStr(): void
     {
         $colour = 'Ruter';
         $rang = 'Kung';

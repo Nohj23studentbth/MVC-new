@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
  */
 class Game21Test extends TestCase
 {
-    public function test__constructor(): void
+    public function testConstructor(): void
     {
         // Skapa mock-objekt för bankens hand, spelarens hand och kortlek
         $bankensHand = $this->createMock(CardHand::class);
@@ -53,22 +53,21 @@ class Game21Test extends TestCase
         // Skapa en kortlek och starta den
         $kortlek = new DeckOfCards();
         $kortlek->setupDeck();
-
+    
         // Skapa händer för spelaren och banken
         $spelarensHand = new CardHand();
         $bankensHand = new CardHand();
-
+    
         // Skapa ett nytt Game21-objekt
         $spel21 = new Game21($kortlek, $spelarensHand, $bankensHand);
-
+    
         // Hämta värdet för bankens hand
         $bankensHandValue = $spel21->bankDraw();
-
-        // Kontrollera att bankens handvärde är ett heltal och är större än eller lika med 17
-        $this->assertIsInt($bankensHandValue);
+    
+        // Kontrollera att bankens handvärde är större än eller lika med 17
         $this->assertGreaterThanOrEqual(17, $bankensHandValue);
     }
-
+    
     public function testCheckAceValue(): void
     {
         // Skapa en kortlek och starta den

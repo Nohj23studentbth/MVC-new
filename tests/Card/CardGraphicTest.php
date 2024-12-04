@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 class CardGraphicTest extends TestCase
 {
     // Testa konstruktorn och getAsStr() för varje färg
-    public function testCardGraphicConstructorAndGetAsStr()
+    public function testCardGraphicConstructorAndGetAsStr(): void
     {
         // Test för Klöver (♣)
         $kort = new CardGraphic('Klöver', 'Kung', 13);
@@ -27,14 +27,13 @@ class CardGraphicTest extends TestCase
     }
 
     // Testa om parent fungerar
-    public function testCardGraphicGetters()
+    public function testCardGraphicGetters(): void
     {
-        //  Skapa kort
+        // Skapa kort
         $kort = new CardGraphic('Spader', 'Kung', 13);
 
         $this->assertEquals('Spader', $kort->getColour());
         $this->assertEquals('Kung', $kort->getRang());
         $this->assertEquals(13, $kort->getVal());
     }
-   
 }

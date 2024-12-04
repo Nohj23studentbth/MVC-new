@@ -80,9 +80,12 @@ class DeckOfCardsTest extends TestCase
     {
         // Setup kortlek med CardGraphics
         $this->deck->setupDeck();
-
+    
         $cardStrings = $this->deck->getString();
+    
+        // Kontrollera antal representationer
         $this->assertCount(52, $cardStrings, "There should be 52 string representations of cards.");
-        $this->assertIsArray($cardStrings, "getString should return an array.");
     }
+    
+    
 }
