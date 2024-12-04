@@ -47,46 +47,46 @@ class TheGame21Controller extends AbstractController
     ): Response {
         /** @var mixed $spel */
         $spel = $session->get("game21_logic");
-    
+
         if (!$spel instanceof Game21) {
             // Redirect or initialize game if $spel is not an instance of Game21
             $this->addFlash('error', 'Game session not found. Starting a new game.');
             return $this->redirectToRoute('game_post');
         }
-    
+
         $spelarHand = $spel->getPlayerHand();
         $bankHand = $spel->getBankHand();
-    
+
         $playerAdjusted = $spel->checkAceValue($spelarHand);
         $bankAdjusted = $spel->checkAceValue($bankHand);
-    
+
         $data = [
             "SpelarensHand" => $spelarHand->getString(),
             "SpelarensVärde" => $playerAdjusted,
             "bankensHand" => $bankHand->getString(),
             "bankensVärde" => $bankAdjusted
         ];
-    
+
         return $this->render('game21/round.html.twig', $data);
     }
-    
+
 
     #[Route("/game/round", name: "game_draw", methods: ['POST'])]
     public function game21Draw(SessionInterface $session): Response
     {
         /** @var Game21|null $spel */
         $spel = $session->get("game21_logic");
-    
+
         // Check if $spel is set and not null
         if (isset($spel)) {
             $spelarHand = $spel->getPlayerHand();
             $kortlek = $spel->getDeck();
-    
+
             $kort = $kortlek->draw(1);
             $spelarHand->addCardsArray($kort);
-    
+
             $playerAdjusted = $spel->checkAceValue($spelarHand);
-    
+
             if ($playerAdjusted > 21) {
                 $this->addFlash(
                     'warning',
@@ -94,7 +94,7 @@ class TheGame21Controller extends AbstractController
                 );
             }
         }
-    
+
         return $this->redirectToRoute('game_round');
     }
 

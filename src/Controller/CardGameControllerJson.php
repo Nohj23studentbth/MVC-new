@@ -41,12 +41,12 @@ class CardGameControllerJson
         $kortlek = new DeckOfCards();
         $kortlek->setupDeckText();
         $session->set("card_deck", $kortlek);
-    
+
         $kortlek->shuffle();
         $blandadKortlek = $kortlek->getString();
-    
+
         $data = ['allaKort' => $blandadKortlek];
-    
+
         $response = new JsonResponse($data);
         $response->setEncodingOptions($response->getEncodingOptions() | JSON_PRETTY_PRINT);
         return $response;
@@ -58,25 +58,25 @@ class CardGameControllerJson
         /** @var DeckOfCards $kortlek */
         $kortlek = $session->get('card_deck');
         $cntKort = $kortlek->countCards();
-    
+
         if ($cntKort > 0) {
             $draget = $kortlek->draw(1);
-    
+
             $hand = new CardHand();
             $hand->addCardsArray($draget);
-    
+
             $kortHanden = $hand->getString();
         } else {
             $kortHanden = [];
         }
-    
+
         $cntKort = $kortlek->countCards();
-    
+
         $data = [
             'hand' => $kortHanden,
             'countCards' => $cntKort
         ];
-    
+
         $response = new JsonResponse($data);
         $response->setEncodingOptions($response->getEncodingOptions() | JSON_PRETTY_PRINT);
         return $response;
@@ -89,32 +89,32 @@ class CardGameControllerJson
     ): Response {
         /** @var DeckOfCards $kortlek */
         $kortlek = $session->get('card_deck');
-    
+
         // Safely call countCards() since we know $kortlek is an instance of DeckOfCards
         $cntKort = $kortlek->countCards();
-    
+
         if ($cntKort > 0 && $number > 0) {
             $draget = $kortlek->draw($number);
-    
+
             $hand = new CardHand();
             $hand->addCardsArray($draget);
-    
+
             $kortHanden = $hand->getString();
         } else {
             $kortHanden = [];
         }
-    
+
         // Update the count after drawing cards
         $cntKort = $kortlek->countCards();
-    
+
         $data = [
             'hand' => $kortHanden,
             'countCards' => $cntKort,
         ];
-    
+
         $response = new JsonResponse($data);
         $response->setEncodingOptions($response->getEncodingOptions() | JSON_PRETTY_PRINT);
         return $response;
     }
-    
+
 }
